@@ -1,15 +1,24 @@
+
+import Header from '../Header/Header';
+import SideBar from '../SideBar/SideBar'
+
+import "./Home_Screen.css"
+
+import { Link } from 'react-router-dom'
 import React from 'react';
-import PropTypes from 'prop-types';
-import styles from './Home_Screen.module.css';
 
-const Home_Screen = () => (
-  <div className={styles.Home_Screen}>
-    Home_Screen Component
-  </div>
-);
-
-Home_Screen.propTypes = {};
-
-Home_Screen.defaultProps = {};
+function Home_Screen() {
+    return (
+        <body>
+            <Header />
+            <SideBar />
+            <div className="home-screen-container">
+                <div className="home-screen-content">
+                    <h1>Welcome to HalifaxFoodie!</h1>
+                </div>
+            </div>
+         </body>
+    )
+}
 
 export default Home_Screen;

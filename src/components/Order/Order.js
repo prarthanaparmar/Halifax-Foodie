@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './Order.module.css';
+import styles from './Order.css';
+import Header from '../Header/Header';
+import SideBar from '../SideBar/SideBar'
 
 const Order = () => (
-  <div className={styles.Order}>
-    Order Component
-  </div>
+  <body>
+  <Header />
+  <SideBar />
+  </body>
 );
 
 Order.propTypes = {};

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './Register.module.css';
+import styles from './Register.css';
 
 const Register = () => (
   <div className={styles.Register}>
