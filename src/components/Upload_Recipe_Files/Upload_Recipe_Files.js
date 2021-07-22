@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './Upload_Recipe_Files.module.css';
+import styles from './Upload_Recipe_Files.css';
 
 const Upload_Recipe_Files = () => (
   <div className={styles.Upload_Recipe_Files}>

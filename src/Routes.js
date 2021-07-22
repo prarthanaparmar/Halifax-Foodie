@@ -8,17 +8,23 @@ import Online_Support from './components/Online_Support/Online_Support';
 import Feedback from './components/Feedback/Feedback';
 import Upload_Recipe_Files from './components/Upload_Recipe_Files/Upload_Recipe_Files';
 import Order from './components/Order/Order'
+import RestaurantsList from './components/RestaurantsList/RestaurantsList';
+import Header from './components/Header/Header';
+import SideBar from './components/SideBar/SideBar'
 
 export const Routes = () => (
   <Switch>
     <Route exact path="/" component={Home_Screen} />
     <Route exact path="/register" component={Register} />
     <Route exact path="/login" component={Login} />
-    <Route exact path="/chatbot" component={Chat} />
+    <Route exact path="/chatWithUs" component={Chat} />
     <Route exact path="/online_support" component={Online_Support} />
     <Route exact path="/order" component={Order} />
     <Route exact path="/feedback" component={Feedback} />
     <Route exact path="/upload_recipe_files" component={Upload_Recipe_Files} />
+    <Route exact path="/restaurantList" component={RestaurantsList} />
+    <Route exact path="/header" component={Header} />
+    <Route exact path="/sideBar" component={SideBar} />
   </Switch>
 );
 

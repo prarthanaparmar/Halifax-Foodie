@@ -1,0 +1,12 @@
+.home-screen-container {
+    position: absolute;
+    left: 250px;
+    top:100px;
+    height: 100%;
+    width: 80%;
+    float: right;
+}
+.home-screen-content {
+    margin-top: 100px;
+    text-align: center;
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './Feedback.module.css';
+import styles from './Feedback.css';
 
 const Feedback = () => (
   <div className={styles.Feedback}>
