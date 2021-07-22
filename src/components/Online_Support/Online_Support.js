@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import LexChat from "react-lex";
+// import LexChat from "react-lex-plus";
 import Header from '../Header/Header';
 import SideBar from '../SideBar/SideBar'
 
