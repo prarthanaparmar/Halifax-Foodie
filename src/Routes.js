@@ -11,6 +11,7 @@ import Order from './components/Order/Order'
 import RestaurantsList from './components/RestaurantsList/RestaurantsList';
 import Header from './components/Header/Header';
 import SideBar from './components/SideBar/SideBar'
+import Cart from './components/Cart/Cart';
 
 export const Routes = () => (
   <Switch>
@@ -20,6 +21,7 @@ export const Routes = () => (
     <Route exact path="/chatWithUs" component={Chat} />
     <Route exact path="/online_support" component={Online_Support} />
     <Route exact path="/order" component={Order} />
+    <Route exact path="/cart" component={Cart} />
     <Route exact path="/feedback" component={Feedback} />
     <Route exact path="/upload_recipe_files" component={Upload_Recipe_Files} />
     <Route exact path="/restaurantList" component={RestaurantsList} />

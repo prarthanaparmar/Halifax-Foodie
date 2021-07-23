@@ -67,9 +67,9 @@ function ChatRoom() {
 
     <form onSubmit={sendMessage}>
 
-      <input value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="Enter a message" />
+      <input className="inputClassMessage" value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="Enter a message" />
 
-      <button type="submit" disabled={!formValue}>Send</button>
+      <button className="sendButton" type="submit" disabled={!formValue}>Send</button>
 
     </form>
   </>)
@@ -84,7 +84,7 @@ function ChatMessage(props) {
   return (<>
     <div className={`message ${messageClass}`}>
       <img src={photoURL || 'https://api.adorable.io/avatars/23/abott@adorable.png'} />
-      <p>{text}</p>
+      <p className="textMessages">{text}</p>
     </div>
   </>)
 }

@@ -12,102 +12,18 @@
     text-align: center;
   }
 
-  /* .Chat body {
-    background-color: #282c34;
-  }
-  
-  .Chat {
+.Chat {
     text-align: center;
     width: 80%;
     margin: 0 auto;
-  }
-  
-  .Chat header {
-    background-color: #181717;
-    height: 10vh;
-    min-height: 50px;
-    color: white;
-    position: fixed;
-    width: 100%;
-    max-width: 728px;
-    top: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    z-index: 99;
-    padding: 10px;
-    box-sizing: border-box;
-  }
-  
-  .Chat section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: 100vh;
-    background-color: rgb(40, 37, 53);
-  }
-  
-  main {
-    padding: 10px;
-    height: 80vh;
-    margin: 10vh 0 10vh;
-    overflow-y: scroll;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  main::-webkit-scrollbar {
-    width: 0.25rem;
-  }
-  
-  main::-webkit-scrollbar-track {
-    background: #1e1e24;
-  }
-  
-  main::-webkit-scrollbar-thumb {
-    background: #6649b8;
-  }
-  
-  .sign-in {
-    color: #282c34;
-    background: white;
-    max-width: 400px;
-    margin: 0 auto;
-  }
-  
-  ul, li {
-    text-align: left;
-    list-style: none;
-  }
-   */
+}
 
-   .Chat {
-    text-align: center;
-    width: 80%;
-    margin: 0 auto;
-  }
 
-  /* form {
-    height: 10vh;
-    position: fixed;
-    bottom: 0;
-    background-color: rgb(24, 23, 23);
-    width: 80%;
-    width: 700px;
-    display: flex;
-    font-size: 1rem;
-  }
-  
-  form button {
-    width: 20%;
-    background-color: rgb(56, 56, 143);
-  }  */
-
-  form input::-webkit-input-placeholder {
+.inputClassMessage::-webkit-input-placeholder {
     font-family: 'sans-serif';
-  }
+}
 
-  input {
+.inputClassMessage {
     line-height: 2.5;
     width: 50%;
     font-size: 1.5rem;
@@ -119,7 +35,7 @@
     font-family: 'sans-serif';
   }
 
-  form button {
+.sendButton {
     background-color:brown; 
     border: none;
     color: white;
@@ -132,12 +48,12 @@
     font-family: 'sans-serif';
   }
 
-   form button:disabled {
+.sendButton:disabled {
     opacity: 0.5;
     cursor: not-allowed;
-  }
+}
 
-  p {
+.textMessages {
     max-width: 500px;
     margin-bottom: 12px;
     line-height: 24px;
