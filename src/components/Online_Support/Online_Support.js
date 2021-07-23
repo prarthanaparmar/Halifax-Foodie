@@ -3,6 +3,7 @@ import LexChat from "react-lex";
 // import LexChat from "react-lex-plus";
 import Header from '../Header/Header';
 import SideBar from '../SideBar/SideBar'
+import './Online_Support.css'
 
 // https://github.com/promediacorp/react-lex
 // https://aws.amazon.com/blogs/machine-learning/greetings-visitor-engage-your-web-users-with-amazon-lex/

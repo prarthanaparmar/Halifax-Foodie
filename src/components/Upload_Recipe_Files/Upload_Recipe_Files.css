@@ -1,1 +1,13 @@
-.Upload_Recipe_Files {}
+.uploadFile-screen-container {
+    position: absolute;
+    left: 400px;
+    top:100px;
+    height: 100%;
+    width: 60%;
+    /* float: right; */
+  }
+
+  .uploadFile-screen-content {
+    margin-top: 100px;
+    text-align: center;
+  }
