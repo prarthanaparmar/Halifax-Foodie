@@ -21,7 +21,7 @@ function SideBar() {
                     </li> 
                     <li className='nav-text' >
                         <Link to='/chatWithUs' >
-                            <span > Chat with Us </span> 
+                            <span > Chat </span> 
                         </Link > 
                     </li> 
                     <li className='nav-text' >
