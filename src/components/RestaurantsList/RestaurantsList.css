@@ -6,23 +6,8 @@
   width: 80%;
   float: right;
 }
+
 .restaurant-screen-content {
   margin-top: 100px;
   text-align: center;
-}
-
-.apply {
-  float: right;
-  margin-right: 2%;
-  margin-top: 1%;
-  background-color: green;
-  padding: 5px 1px;
-
-}
-
-.course {
-  width: 15rem;
-  height: 26rem;
-  margin: 3%;
-  float: left;
 }
