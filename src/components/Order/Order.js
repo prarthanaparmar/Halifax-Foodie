@@ -22,10 +22,10 @@ const options = [
 
 function Order() {
 
-  const [state, setState] = React.useState<{ item: string , quantity: number }>({
-    item: '',
-    quantity: '',
-  });
+  // const [state, setState] = React.useState<{ item: string , quantity: number }>({
+  //   item: '',
+  //   quantity: '',
+  // });
 
   // const handleChange = (event: name?: string, value: unknown }>) => {
   //   const name = event.target.name
@@ -34,7 +34,7 @@ function Order() {
   //     [name]: event.target.value,
   //   });
   // };
-  
+
   return (
   <body>
     <Header />
@@ -52,7 +52,7 @@ function Order() {
         {/* </FormControl>
         <FormControl style={{ marginTop:"7%", marginRight:"1%", width:"50%", height:"50%" }}> */}
         <InputLabel style={{ marginTop:"9%", marginRight:"1%" }} htmlFor="age-native-simple">Select quantity</InputLabel>
-        <Select native onChange={this.handleChange}>
+        <Select native>
           <option aria-label="None" value="" />
           <option value="1">1</option>
           <option value="2">2</option>
@@ -62,7 +62,7 @@ function Order() {
           Add to Cart
         </Button>
       </FormControl>
-      <Button variant="contained" onClick={this.onAddToCart} style={{ marginTop:"10%", marginRight:"7%" }} color="primary" href="/cart">
+      <Button variant="contained" style={{ marginTop:"10%", marginRight:"7%" }} color="primary" href="/cart">
       Click here to go to cart!
     </Button>
       </div>
