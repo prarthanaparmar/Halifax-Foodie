@@ -3,16 +3,9 @@ import PropTypes from 'prop-types';
 import './Order.css';
 import Header from '../Header/Header';
 import SideBar from '../SideBar/SideBar'
-// import Select from 'react-select'
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+// import Button from "react-bootstrap/Button";
+import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import NativeSelect from '@material-ui/core/NativeSelect';
-import { Link } from 'react-router-dom';
 import Axios from 'axios';
 
 const options = [
@@ -21,49 +14,18 @@ const options = [
   { value: 'Strawberry', label: 'Vanilla' }
 ]
 
-// function Order() {
+var orderStatus = ["Placed","In Progress","Dispatched","Delivered"];
+var randomOrderStatus = orderStatus[Math.floor(Math.random() * orderStatus.length)];
 
-//   return (
-//   <body>
-//     <Header />
-//     <SideBar />
-//     <div className="order-screen-container">
-//         <div className="order-screen-content">
-//         <FormControl style={{ marginRight:"2%", width:"50%", height:"50%" }}>
-//         <InputLabel htmlFor="age-native-simple">Select an food item</InputLabel>
-//         <Select native onChange={this.onChange}>
-//           <option aria-label="None" value="" />
-//           <option value="Pizza">Pizza</option>
-//           <option value="Burger">Burger</option>
-//           <option value="Pasta">Pasta</option>
-//         </Select>
-//         <InputLabel style={{ marginTop:"9%", marginRight:"1%" }} htmlFor="age-native-simple">Select quantity</InputLabel>
-//         <Select native onChange={this.onChange}>
-//           <option aria-label="None" value="" />
-//           <option value="1">1</option>
-//           <option value="2">2</option>
-//           <option value="3">3</option>
-//         </Select>
-//         <Button style={{ marginTop:"10%", marginRight:"1%" }}>
-//           Add to Cart
-//         </Button>
-//       </FormControl>
-//       <Button variant="contained" style={{ marginTop:"10%", marginRight:"7%" }} color="primary" href="/cart">
-//       Click here to go to cart!
-//     </Button>
-//       </div>
-//     </div>
-//   </body>
-// )
-//   }
+console.log(randomOrderStatus)
 
 class Order extends React.Component {
 
   state = {
     products: [
-      {title: 'Pizza', count: 0, price: 20},
-      {title: 'Pasta', count: 0, price: 15},
-      {title: 'Burger', count: 0, price: 10},
+      {title: ' Pizza ', count: 0, price: 20},
+      {title: ' Pasta ', count: 0, price: 15},
+      {title: ' Burger ', count: 0, price: 10},
     ]
   }
   
@@ -77,10 +39,18 @@ class Order extends React.Component {
 
   handleSubmit = (event) => {
      Axios.post(
-      'https://15ix4rukfb.execute-api.us-east-1.amazonaws.com/default/serverlessAppFunction',
-    //   { key1: `${Corpus_Name}, 
-    //     key2: ${Source_Name}` }
-    );
+      'https://backend-yfg27siima-uc.a.run.app/api/order/placeOrder',{
+       "items": "Pizza",
+         "customerID": "1234",
+        "createdOn": "23-07-21",
+         "amount": "123 CAD",
+         "orderStatus": randomOrderStatus // orderStatus can be Placed/In Progress/Delivered
+       }).then((response) => {
+         console.log("inserted")
+         console.log(response);
+         console.log(response.data.data);
+         alert("Order is successfully created. Order ID is " + response.data.data);
+     });
   }
 
   render () {
@@ -91,12 +61,10 @@ class Order extends React.Component {
      <div className="order-screen-container">
          <div className="order-screen-content">
             <div>
+              <h2> Menu </h2>
                 <ProductList products={this.state.products} onChange={this.onChange} />
                 <Total products={this.state.products} />
-                <Button style={{ marginTop:"10%", marginRight:"1%" }} onClick={this.handleSubmit}>  Place Order  </Button> 
-                {/* post call to DynamoDB with Items,Amount, Status */}
-                {/* alert which displays order ID */}
-                {/* order status as placed, dispatched and delivered */}
+                <Button style={{ marginTop:"7%", marginRight:"1%" }} onClick={this.handleSubmit}>  Place Order  </Button> 
             </div>
       </div>
     </div>
@@ -110,7 +78,7 @@ const ProductList = ({ products, onChange }) => (
     {products.map((product, i) => (
       <li key={i}>
         {product.title}
-        <input 
+        <input style={{ marginTop:"1%", marginRight:"1%" }}
           type="text" 
           value={product.count}
           onChange={e => onChange(i, parseInt(e.target.value) || 0)}
@@ -122,11 +90,9 @@ const ProductList = ({ products, onChange }) => (
 
 const Total = ({ products }) => (
   <h3>
-    Total Amount: 
-    {products.reduce((sum, i) => (
+    Total Amount :  {products.reduce((sum, i) => (
       sum += i.count * i.price
-    ), 0)}
-  </h3>
+    ), 0)}    CAD </h3>
 )
 
 export default Order;

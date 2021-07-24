@@ -1,10 +1,9 @@
 .feedback-screen-container {
     position: absolute;
     left: 400px;
-    top:100px;
+    top:40px;
     height: 100%;
     width: 60%;
-    /* float: right; */
   }
 
   .feedback-screen-content {

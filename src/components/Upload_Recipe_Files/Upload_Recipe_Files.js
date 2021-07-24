@@ -38,16 +38,17 @@ return(
       <div className="uploadFile-screen-container">
         <div className="uploadFile-screen-content">
       <div>
-      <form onSubmit={submitForm}>
+        <h3>Upload your files here!</h3>
+      <form  style={{ marginTop:"5%", marginRight:"2%" }} onSubmit={submitForm}>
         <input
           type="text"
           onChange={(e) => setSuperHero(e.target.value)}
           placeholder={"File name"}
         />
         <br />
-        <input type="file" onChange={(e) => setUploadFile(e.target.files)} />
+        <input type="file" style={{ marginTop:"3%", marginRight:"5%" }} onChange={(e) => setUploadFile(e.target.files)} />
         <br />
-        <input type="submit" />
+        <input style={{ marginTop:"5%", marginRight:"5%" }} type="submit" />
       </form>
             </div>
            </div>
@@ -55,8 +56,5 @@ return(
   </body>
 )}
 
-// Upload_Recipe_Files.propTypes = {};
-
-// Upload_Recipe_Files.defaultProps = {};
 
 export default Upload_Recipe_Files;

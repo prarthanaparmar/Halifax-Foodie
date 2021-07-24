@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import LexChat from "react-lex";
-// import LexChat from "react-lex-plus";
 import Header from '../Header/Header';
 import SideBar from '../SideBar/SideBar'
 import './Online_Support.css'
@@ -30,9 +29,6 @@ class Online_Support extends Component {
         region="us-east-1"
         headerText="Chat with our awesome bot"
         headerStyle={{ backgroundColor: "#ABD5D9", fontSize: "10px" }}
-        // greeting={
-        // "Hello, how can I help? You can say things like 'help' to get more info"
-        // }
       />
       </body>
     );

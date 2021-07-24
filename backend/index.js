@@ -22,7 +22,7 @@ const onError = error => {
   }
 };
 
-const port = (process.env.PORT || "3000");
+const port = (process.env.PORT || "2000");
 app.set("port", port);
 
 const server = http.createServer(app);
