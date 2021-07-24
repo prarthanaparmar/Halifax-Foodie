@@ -1,0 +1,14 @@
+
+
+.header {
+    background-color: #002b5c;
+    width: 100%;
+    height: 90px;
+    position: fixed;
+    z-index: 9999;
+}
+#collasible-nav-dropdown {
+    color: azure;
+    font-weight: bolder;
+    font-family: 'Times New Roman', Times, serif;
+}
