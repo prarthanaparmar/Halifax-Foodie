@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './Chat.css';
 import Header from '../Header/Header';
 import SideBar from '../SideBar/SideBar'
@@ -22,12 +21,35 @@ function Chat() {
         <SideBar />
           <div className="chat-screen-container">
              <div className="chat-screen-content">
+               <div> <SignOut /></div>
                 <section>
-                  <ChatRoom />
+                    {user ? <ChatRoom /> : <SignIn />}
                 </section>
               </div>
            </div>
     </body>
+  )
+}
+
+function SignIn() {
+
+  const signInWithGoogle = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider);
+  }
+
+  return (
+    <>
+      <button className="sign-in" onClick={signInWithGoogle}>Sign in with Google</button>
+      <p>Login here to chat with our Customer Service Representatives! Do not violate the community guidelines!</p>
+    </>
+  )
+
+}
+
+function SignOut() {
+  return auth.currentUser && (
+    <button className="sign-out" onClick={() => auth.signOut()}>Sign Out</button>
   )
 }
 
@@ -75,7 +97,6 @@ function ChatRoom() {
   </>)
 }
 
-
 function ChatMessage(props) {
   const { text, uid, photoURL, createdAt } = props.message;
 
@@ -89,8 +110,5 @@ function ChatMessage(props) {
   </>)
 }
 
-// Chat.propTypes = {};
-
-// Chat.defaultProps = {};
 
 export default Chat;

@@ -1,11 +1,11 @@
 .order-screen-container {
     position: absolute;
     left: 400px;
-    top:100px;
+    top:50px;
     height: 100%;
-    width: 80%;
+    width: 20%;
     float: right;
-    /* background-color: brown; */
+    margin-left: 100px;
   }
   
   .order-screen-content {
