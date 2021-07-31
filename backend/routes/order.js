@@ -8,7 +8,6 @@ const { uuid } = require('uuidv4');
 AWS.config.update(env);
 
 dynamoDBClient = new AWS.DynamoDB.DocumentClient();
-// s3 = new AWS.S3()
 
 const router = express.Router();
 
@@ -57,6 +56,39 @@ router.post('/placeOrder', (req, res) => {
                 })
             }
 });
+
+router.get('/', (req, res) => {
+
+    const params = {
+        TableName: "Orders"
+    };
+
+    try {
+        dynamoDBClient.scan(params).promise().then((results) => {
+            console.log("Fetched orders are", results);
+
+            res.status(200).json({
+                "status" : true,
+                "message" : "List of orders retrieved!",
+                "results" : results.Items
+
+            })
+        }).catch(err => {
+            console.log(err);
+            res.status(500).json({
+                "status": false,
+                "message": "Error in fetching results from Orders table"
+            })
+        });
+    }
+    catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            "status": false,
+            "message": "Error in fetching news list"
+        })
+    }
+})
 
 
 

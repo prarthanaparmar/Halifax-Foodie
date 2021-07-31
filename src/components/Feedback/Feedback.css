@@ -10,3 +10,14 @@
     margin-top: 100px;
     text-align: center;
   }
+
+  @media all and (min-width: 480px) {
+    .CustomerFeedBack {
+      padding: 60px 0;
+    }
+  
+    .CustomerFeedBack form {
+      margin: 0 auto;
+      max-width: 320px;
+    }
+  }

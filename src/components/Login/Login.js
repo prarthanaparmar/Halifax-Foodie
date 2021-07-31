@@ -1,21 +1,23 @@
 import '../../stylesheets/Login.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import "../Header/Header.css";
 
 import { Alert, Button, Col, Container, Form, Nav, NavDropdown, Navbar } from "react-bootstrap";
 import Amplify, { Auth } from 'aws-amplify';
 import React, { useEffect, useState } from 'react';
 
-import VerificationPage from '../Authentication/verifyEmail';
-import axios from 'axios';
 import firebase from '../../services/firebase';
 import { useHistory } from 'react-router-dom';
 
 function Login(props) {
     const history = useHistory();
-    // const userDetails = new userDetails();
     const [getUser, setGetUser] = useState({
         getEmail: "",
         getPassword: ""
+    });
+    const [securityQuestions, setSecurityQuestions] = useState({
+        familyName: "",
+        bornCountry: ""
     });
 
     const [validEmail, setValidEmail] = useState(false);
@@ -23,7 +25,6 @@ function Login(props) {
     const [alertMessage, setAlertMessage] = useState('');
     const [result, setResult] = useState('');
     const [code, setCode] = useState(false);
-    // const ref = firebase.firestore().collection("userDetails")
 
     const [errMessage, setErrMessage] = useState({
         msgEmail: '',
@@ -41,11 +42,10 @@ function Login(props) {
     };
 
     const checkValidEmail = (email) => {
-
         if (emailRegex.test(email)) {
             document.getElementById("email").style.border = "1px solid green"
-        setValidEmail(true)
-        handleChange("getEmail", email);
+            setValidEmail(true)
+            handleChange("getEmail", email);
             handleErrorMsg("msgEmail", '')
         }
         else {
@@ -67,51 +67,23 @@ function Login(props) {
             setValidPassword(false)
             handleErrorMsg("msgPassword", 'Password must contain must contain at least one digit, one capital, small character and one of the folowing chars- @, #, $,%,&,*')
         }
-        // console.log(user.validPassword)
     };
 
     Amplify.configure({
         Auth: {
-
-            // REQUIRED only for Federated Authentication - Amazon Cognito Identity Pool ID
-            identityPoolId: 'us-east-1:9aa76f09-bb4d-4608-8022-a1d1a6a189c1',
-
-            // REQUIRED - Amazon Cognito Region
+            identityPoolId: 'us-east-1:a9aee79e-036c-4ae8-9fb1-7fbb1d2da1ce',
             region: 'us-east-1',
-
-            // OPTIONAL - Amazon Cognito Federated Identity Pool Region 
-            // Required only if it's different from Amazon Cognito Region
             identityPoolRegion: 'us-east-1',
-
-            // OPTIONAL - Amazon Cognito User Pool ID
-            userPoolId: 'us-east-1_x9SE9KfTJ',
-
-            // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
-            userPoolWebClientId: '5sgtlbm4q6m3bvd7fkqod8pak7'
+            userPoolId: 'us-east-1_oguJI8xBt',
+            userPoolWebClientId: '1b7g5d2r64puehtq3tuf0h7c5m'
         }
     });
 
     const withdrawSubmit = (e) => {
         e.preventDefault();
         const db = firebase.firestore();
-        var flag=0;
+        var flag = 0;
 
-        // const data = response.get();
-        // console.log(data.docs)
-        // data.docs.forEach(item => {
-        //     setUser([...user, item.data()])
-        // })
-        // console.log('values received', user)
-
-        //------for inserting into firebase----------
-        // const db = firebase.firestore();
-        // db.settings({
-        //     timestampsInSnapshots: true
-        // });
-        // const userRef = db.collection('userDetails').add({
-        //     email: user.email,
-        //     password: user.password
-        // });
         if (!validEmail && !validPassword) {
             document.getElementById("password").style.border = "1px solid red"
             document.getElementById("email").style.border = "1px solid red"
@@ -121,38 +93,47 @@ function Login(props) {
         else {
             if (validEmail) {
                 if (validPassword) {
-                    console.log('true')
                     document.getElementById("alertNotSubmit").style.display = "none"
                     try {
-                        //-----hitting the firebase--------
-                        const response = db.collection('userDetails').get().then(
-                            result => {
-                                console.log('valResult- ',result)
-                                const firestoreData = []
-                                result.forEach(doc => {
-                                    const data = doc.data()
-                                    firestoreData.push(data)
-                                })
-                                
-                                for (var i = 0; i < firestoreData.length; i++) {
-                                    if(getUser.getEmail == firestoreData[i].email){
-                                        flag=1;
-                                        if(getUser.getPassword == firestoreData[i].password){
-                                            history.push('/home');
-                                            // history.push({
-                                            //     pathname: '/chat',
-                                            //     myCustomProps: userData
-                                            // })
-                                        }
-                                        else{
-                                            console.log("Invalid password")
-                                            break
-                                        }
+                        console.log(getUser.getPassword)
+                        Auth.signIn(getUser.getEmail, getUser.getPassword).then(
+                            data => {
+                                if (data != null) {
+                                    console.log('success', data)
+                                    if (data.username != null) {
+                                        const response = db.collection('userDetails').get().then(
+                                            result => {
+                                                const firestoreData = []
+                                                result.forEach(doc => {
+                                                    const data = doc.data()
+                                                    firestoreData.push(data)
+                                                })
+                                                for (var i = 0; i < firestoreData.length; i++) {
+                                                    if (getUser.getEmail == firestoreData[i].email) {
+                                                        if (getUser.getPassword == firestoreData[i].password) {
+                                                            securityQuestions.familyName = firestoreData[i].familyName
+                                                            securityQuestions.bornCountry = firestoreData[i].bornCountry
+                                                            history.push({
+                                                                pathname: '/qa',
+                                                                myCustomProps: securityQuestions
+                                                            })
+                                                            break
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        )
                                     }
-                                } 
-                                if(flag==0){
-                                    console.log("User email ID not found.")
+                                    else {
+                                        console.log('fail')
+                                    }
                                 }
+                            }
+                        ).catch(
+                            (err) => {
+                                console.log('fail', err.message)
+                                document.getElementById("alertNotSubmit").style.display = "block"
+                                setAlertMessage(err.message)
                             }
                         )
 
@@ -178,26 +159,26 @@ function Login(props) {
 
     return (
         <section class='bg-whole-page'>
-            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-                <Container>
-                    <Navbar.Brand href="#home">HalifaxFoodie</Navbar.Brand>
-                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                    <Navbar.Collapse id="responsive-navbar-nav">
-                        <Nav className="me-auto">
-
-                        </Nav>
-                        <Nav>
+            <div className="header">
+                <br />
+                <Navbar collapseOnSelect expand="lg">
+                    <Container>
+                        <Navbar.Brand href="/" style={{ color: "white" }}>HalifaxFoodie</Navbar.Brand>
+                        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                        <Navbar.Collapse id="responsive-navbar-nav">
                             <Nav className="me-auto">
-                                <NavDropdown title="SignIn" id="collasible-nav-dropdown">
-                                    <NavDropdown.Item href="/">SignIn</NavDropdown.Item>
-                                    <NavDropdown.Item href="/register">SignUp</NavDropdown.Item>
-                                </NavDropdown>
+
                             </Nav>
-                        </Nav>
-                    </Navbar.Collapse>
-                </Container>
-            </Navbar>
-            <br /><br /><br /><br />
+                            <Nav>
+                                <Nav className="me-auto">
+                                    <Nav.Link href="/register" style={{ color: "white" }}>Register</Nav.Link>
+                                </Nav>
+                            </Nav>
+                        </Navbar.Collapse>
+                    </Container>
+                </Navbar>
+            </div>
+            <br /><br /><br /><br /><br /><br /><br /><br />
             <div>
                 <div class="container">
                     <div class="row">

@@ -12,6 +12,9 @@ import RestaurantsList from './components/RestaurantsList/RestaurantsList';
 import Header from './components/Header/Header';
 import SideBar from './components/SideBar/SideBar'
 import Authentication from './components/Authentication/verifyEmail';
+import Question from './components/Login/qa';
+import Visualisation from "./components/Visualization/Visualization";
+import ReportGeneration from './components/Report_Generation/ReportGeneration';
 
 export const Routes = () => (
   <Switch>
@@ -27,6 +30,11 @@ export const Routes = () => (
     <Route exact path="/header" component={Header} />
     <Route exact path="/sideBar" component={SideBar} />
     <Route exact path="/verify" component={Authentication} />
+    <Route exact path="/qa" component={Question} />
+    <Route exact path="/visual" component={Visualisation} />
+    <Route exact path="/report" component={ReportGeneration} />
+
+
   </Switch>
 );
 
