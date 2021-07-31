@@ -42,8 +42,8 @@ class Order extends React.Component {
       'https://backend-yfg27siima-uc.a.run.app/api/order/placeOrder',{
        "items": "Pizza",
          "customerID": "1234",
-        "createdOn": "23-07-21",
-         "amount": "123 CAD",
+        "createdOn": "26-07-21",
+         "amount": "20 CAD",
          "orderStatus": randomOrderStatus // orderStatus can be Placed/In Progress/Delivered
        }).then((response) => {
          console.log("inserted")

@@ -14,8 +14,8 @@ function SideBar() {
         <div className='navBar' >
             <nav className='nav-menu' >
                 <ul className='nav-menu-items' >
-                    <li className='nav-text' >
-                        <Link to='/online_support' >
+                    <li className='nav-text' style={{ marginTop: '10%'}} >
+                        <Link to='/online_support'>
                             <span > ChatBot </span> 
                         </Link > 
                     </li> 
@@ -37,6 +37,16 @@ function SideBar() {
                     <li className='nav-text' >
                         <Link to='/upload_recipe_files' >
                             <span > Upload Recipe Files </span> 
+                        </Link > 
+                    </li> 
+                    <li className='nav-text' >
+                        <Link to='/visual' >
+                            <span > Visualisation </span> 
+                        </Link > 
+                    </li> 
+                    <li className='nav-text' >
+                        <Link to='/report' >
+                            <span >  Report Generation </span> 
                         </Link > 
                     </li> 
                 </ul > 

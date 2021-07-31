@@ -2,17 +2,18 @@ import '../../stylesheets/Login.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'firebase/firestore';
 import 'firebase/auth';
+import "../Header/Header.css";
 
-import { Alert, Button, Col, Container, Form, Nav, NavDropdown, Navbar } from "react-bootstrap";
+import { Alert, Button, Container, Form, Nav, Navbar } from "react-bootstrap";
 import Amplify, { Auth } from 'aws-amplify';
 import React, { useEffect, useState } from 'react';
 
+import Header from '../Header/Header';
 import firebase from '../../services/firebase';
 import { useHistory } from 'react-router-dom';
 
 function Registration(props) {
     const history = useHistory();
-    // const ref = firebase.firestore().collection("userDetials")
     const [user, setUser] = useState({
         name: "",
         number: "",
@@ -31,6 +32,7 @@ function Registration(props) {
     const [validLocation, setValidLocation] = useState(false);
     const [validFamilyName, setValidFamilyName] = useState(false);
     const [validBornCountry, setValidBornCountry] = useState(false);
+    const [validRegistration, setValidRegistration] = useState(true);
 
     const [alertMessage, setAlertMessage] = useState('');
     const [result, setResult] = useState('');
@@ -74,10 +76,17 @@ function Registration(props) {
     };
 
     const checkValidNumber = (number) => {
-        document.getElementById("number").style.border = "1px solid green"
+        // if (numberRegex.test(number)) {
+        //     document.getElementById("number").style.border = "1px solid green"
         handleChange("number", number);
         setValidNumber(true)
-        handleErrorMsg("msgNumber", '')
+            // handleErrorMsg("msgNumber", '')
+        // }
+        // else {
+        //     document.getElementById("number").style.border = "1px solid red"
+        //     setValidNumber(false)
+        //     handleErrorMsg("msgNumber", 'Please enter valid number')
+        // }
     };
 
     const checkValidEmail = (email) => {
@@ -149,28 +158,16 @@ function Registration(props) {
 
     Amplify.configure({
         Auth: {
-
-            // REQUIRED only for Federated Authentication - Amazon Cognito Identity Pool ID
-            identityPoolId: 'us-east-1:9aa76f09-bb4d-4608-8022-a1d1a6a189c1',
-
-            // REQUIRED - Amazon Cognito Region
+            identityPoolId: 'us-east-1:a9aee79e-036c-4ae8-9fb1-7fbb1d2da1ce',
             region: 'us-east-1',
-
-            // OPTIONAL - Amazon Cognito Federated Identity Pool Region 
-            // Required only if it's different from Amazon Cognito Region
             identityPoolRegion: 'us-east-1',
-
-            // OPTIONAL - Amazon Cognito User Pool ID
-            userPoolId: 'us-east-1_x9SE9KfTJ',
-
-            // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
-            userPoolWebClientId: '5sgtlbm4q6m3bvd7fkqod8pak7'
+            userPoolId: 'us-east-1_oguJI8xBt',
+            userPoolWebClientId: '1b7g5d2r64puehtq3tuf0h7c5m'
         }
     });
 
     const withdrawSubmit = (e) => {
         e.preventDefault();
-        console.log("user:- ", user)
         if (!validName && !validNumber && !validEmail && !validPassword && !validLocation && !validFamilyName && !validBornCountry) {
             document.getElementById("password").style.border = "1px solid red"
             document.getElementById("email").style.border = "1px solid red"
@@ -190,11 +187,9 @@ function Registration(props) {
                             if (validLocation) {
                                 if (validFamilyName) {
                                     if (validBornCountry) {
-                                        console.log('true')
                                         document.getElementById("alertNotSubmit").style.display = "none"
                                         try {
-                                            console.log(user)
-                                            const userDetails = Auth.signUp({
+                                            const res = Auth.signUp({
                                                 username: user.email,
                                                 password: user.password,
                                                 attributes: {
@@ -202,15 +197,24 @@ function Registration(props) {
                                                     email: user.email,
                                                     phone_number: user.number
                                                 }
-                                            });
+                                            }).then(
+                                                data => {
+                                                    if (data != null) {
+                                                        history.push({
+                                                            pathname: '/verify',
+                                                            myCustomProps: user
+                                                        })
+                                                        console.log('success', data)
+                                                    }
+                                                }
+                                            )
+                                                .catch(
+                                                    (err) => {
 
-                                            console.log('role', user.role)
-
-                                            //history.push('/verify');
-                                            history.push({
-                                                pathname: '/verify',
-                                                myCustomProps: user
-                                            })
+                                                        document.getElementById("alertNotSubmit").style.display = "block"
+                                                        setAlertMessage(err.message)
+                                                    }
+                                                )
                                         } catch (error) {
                                             console.log('error signing up:', error);
                                         }
@@ -257,58 +261,31 @@ function Registration(props) {
                 setAlertMessage('Please enter required fields')
             }
         }
-
-        // axios.post('http://localhost:3000/insert', {
-        //     "userName": this.state.userName,
-        //     "userPassword": this.state.userPassword,
-        //     "userNumber": this.state.userNumber,
-        //     "userEmailID": this.state.userEmailID,
-        //     "userGender": this.state.userGender
-        // }).then((response) => {
-        //     console.log("inserted")
-        // });
-
-        // try {
-        //     const awsUser = Auth.signUp({
-        //         username: user.email,
-        //         password: user.password,
-        //         attributes: {
-        //             name: user.name,          // optional
-        //             email: user.email,   // optional - E.164 number convention
-        //             // other custom attributes 
-        //         }
-        //     });
-        //     console.log('Success', user.email, user.name, awsUser);
-        //     Auth.confirmSignUp(user.email, '189274', {
-        //         forceAliasCreation: true
-        //     }).then(data => console.log("comfirmcode", data))
-        // } catch (error) {
-        //     console.log('error signing up:', error);
-        // }
     }
 
     return (
 
         <section class='bg-whole-page'>
-            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+            <div className="header">
+            <br />
+            <Navbar collapseOnSelect expand="lg">
                 <Container>
-                    <Navbar.Brand href="#home">HalifaxFoodie</Navbar.Brand>
+                    <Navbar.Brand href="/" style={{ color: "white" }}>HalifaxFoodie</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
-                        <Nav className="me-auto"></Nav>
+                        <Nav className="me-auto">
+
+                        </Nav>
                         <Nav>
                             <Nav className="me-auto">
-                                <NavDropdown title="SignUp" id="collasible-nav-dropdown">
-                                    <NavDropdown.Item href="/">SignIn</NavDropdown.Item>
-                                    <NavDropdown.Item href="/register">SignUp</NavDropdown.Item>
-                                </NavDropdown>
+                                <Nav.Link href="/register" style={{ color: "white" }}>Register</Nav.Link>
                             </Nav>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-
-            <br /><br /><br /><br />
+        </div>
+            <br /><br /><br /><br /><br /><br />
             <div class="container">
                 <div class="row">
                     <br /><br />
@@ -326,15 +303,13 @@ function Registration(props) {
                                 <input type="text" className="textbox-design" id="name" name="name" placeholder="Enter Name" style={{ border: "1px solid green" }}
                                     onChange={(e) => {
                                         checkValidName(e.target.value);
-                                    }}
-
-                                />
+                                    }} />
                                 <div><p>{errMessage.msgName}</p></div>
                             </div>
                             <div class="col-6">
                                 <Form.Label>Phone Number*</Form.Label>
                                 <br />
-                                <input type="text" className="textbox-design" maxLength="15" id="number" name="number" placeholder="Enter Phone Number" style={{ border: "1px solid green" }}
+                                <input type="text" className="textbox-design" id="number" name="number" placeholder="Enter Phone Number" style={{ border: "1px solid green" }}
                                     onChange={(e) => {
                                         checkValidNumber(e.target.value);
                                     }}

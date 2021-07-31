@@ -4,9 +4,7 @@ import Header from '../Header/Header';
 import SideBar from '../SideBar/SideBar'
 import './Online_Support.css'
 
-// https://github.com/promediacorp/react-lex
-// https://aws.amazon.com/blogs/machine-learning/greetings-visitor-engage-your-web-users-with-amazon-lex/
-// https://github.com/venkateshkodumuri/Lex_Chatbot_to_fetch_data_from_dynamodb/blob/main/lambda_function.py
+
 class Online_Support extends Component {
   render() {
     return (

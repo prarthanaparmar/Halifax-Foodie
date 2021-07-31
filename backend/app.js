@@ -3,6 +3,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 
 const orderRoute = require('./routes/order');
+const uploadRoute = require('./routes/uploadFile');
 
 const app = express();
 const rootRoute = '/api'
@@ -22,6 +23,7 @@ app.use(
 app.use(bodyParser.json())
 
 app.use(rootRoute+'/order', orderRoute);
+app.use(rootRoute+'/upload', uploadRoute);
 
 app.use('/',(req, res) =>{
   var response = {
