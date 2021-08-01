@@ -1,30 +1,56 @@
-
 const express = require('express');
 const AWS = require('aws-sdk');
 const env = require('../data/env.json');
-
-const { uuid } = require('uuidv4');
-
-// AWS.config.update({region: 'us-east-1'});
 AWS.config.update(env);
-
 dynamoDBClient = new AWS.DynamoDB.DocumentClient();
-
 const router = express.Router();
+const { Storage } = require('@google-cloud/storage');
+const fs = require('fs');
+const storage = new Storage();
+const buckettest = 'testbucketrecipe';
+const bucketresult = 'resultbucketstorage'
 
 router.post('/uploadrecipe', (req, res) => {
-    console.log(req.body.text);
-    sleep(15000);
-    res.json({ output: "The file is predicted as cake with accuracy of 0.9946331977844238" });
-   });
+  console.log(req.body.text);
   
-  function sleep(milliseconds) {
-    const date = Date.now();
-    let currentDate = null;
-    do {
-      currentDate = Date.now();
-    } while (currentDate - date < milliseconds);
-  }
-  
+  var data = req.body.text; 
+  var fileName = 'testrecipe.txt'; 
 
-  module.exports = router;
+  fs.writeFileSync(fileName, data);
+  const bucket = storage.bucket(buckettest);
+  const filebucket = storage.bucket(bucketresult).file(fileName);
+
+  bucket.upload(fileName, (err, data) => {
+    if (err) console.log(err);
+    else {
+      console.log('File uploaded : ', data);
+      sleepfunction(10000);
+      while(filebucket.exists()){      
+      bucketDownload();
+      }
+    }
+  });
+  const bucketDownload = async () => {
+    await filebucket.download().then((data, err) => {
+      if (err) console.log('File download error : ' + err);
+      else {
+        res.json({ output: data.toString() });
+        filebucket.delete().then((data, err) => {
+          if (err) console.log('not deleted : ', err);
+          else {
+            console.log('deleted' ,data);
+          }
+        });
+      }
+    });
+  };
+});
+
+function sleepfunction(milliseconds) {
+  const datenow = Date.now();
+  let currentDate = null;
+  do {
+    currentDate = Date.now();
+  } while (currentDate - datenow < milliseconds);
+}
+module.exports = router;

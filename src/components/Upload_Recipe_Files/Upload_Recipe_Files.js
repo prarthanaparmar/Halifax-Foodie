@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './Upload_Recipe_Files.css';
 import Header from '../Header/Header';
 import SideBar from '../SideBar/SideBar'
@@ -7,12 +6,8 @@ import {useState} from 'react';
 import axios from 'axios';
 
 function Upload_Recipe_Files() {
+ const [text, setText] = useState('');
 
-const [uploadFile, setUploadFile] = useState();
-  const [superHero, setSuperHero] = useState();
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [text, setText] = useState('');
-  const [response, setResponse] = useState('');
 
 const onFileUpload = (event) => {
   event.preventDefault();
@@ -35,11 +30,6 @@ const onFileUpload = (event) => {
     .catch((error) => {
       alert(error);
     });
-};
-
-const onFileChange = (event) => {
-  var file = event.target.files[0];
-  setSelectedFile(file);
 };
 
 const handleTextBox = (event) => {
@@ -69,3 +59,4 @@ return(
 
 
 export default Upload_Recipe_Files;
+  
