@@ -1,0 +1,102 @@
+{
+    "16295": {
+      "name": "Pepsi",
+      "category": "Beverages",
+      "itemId": 16295,
+      "imageUrl": "/pepsi.jpeg",
+      "price": 200,
+      "tax": 8.25,
+      "available": true,
+      "description": "",
+      "modifierGroups": {},
+      "timePeriods": [
+        {
+          "price": null,
+          "description": null,
+          "daysOfWeek": [],
+          "period": [],
+          "alwaysAvailable": true
+        }
+      ]
+    },
+    "16296": {
+      "name": "Diet Pepsi",
+      "category": "Beverages",
+      "itemId": 16296,
+      "imageUrl": "/pepsi.jpeg",
+      "price": 200,
+      "tax": 8.25,
+      "available": true,
+      "description": "",
+      "modifierGroups": {},
+      "timePeriods": [
+        {
+          "price": null,
+          "description": null,
+          "daysOfWeek": [],
+          "period": [],
+          "alwaysAvailable": true
+        }
+      ]
+    },
+    "16297": {
+      "name": "Dr Pepper",
+      "category": "Beverages",
+      "itemId": 16297,
+      "imageUrl": "/pepsi.jpeg",
+      "price": 200,
+      "tax": 8.25,
+      "available": true,
+      "description": "",
+      "modifierGroups": {},
+      "timePeriods": [
+        {
+          "price": null,
+          "description": null,
+          "daysOfWeek": [],
+          "period": [],
+          "alwaysAvailable": true
+        }
+      ]
+    },
+    "16298": {
+      "name": "Orange Crush",
+      "category": "Beverages",
+      "itemId": 16298,
+      "imageUrl": "/pepsi.jpeg",
+      "price": 200,
+      "tax": 8.25,
+      "available": true,
+      "description": "",
+      "modifierGroups": {},
+      "timePeriods": [
+        {
+          "price": null,
+          "description": null,
+          "daysOfWeek": [],
+          "period": [],
+          "alwaysAvailable": true
+        }
+      ]
+    },
+    "16299": {
+      "name": "Pink Lemonaide",
+      "category": "Beverages",
+      "itemId": 16299,
+      "imageUrl": "/pepsi.jpeg",
+      "price": 200,
+      "tax": 8.25,
+      "available": true,
+      "description": "",
+      "modifierGroups": {},
+      "timePeriods": [
+        {
+          "price": null,
+          "description": null,
+          "daysOfWeek": [],
+          "period": [],
+          "alwaysAvailable": true
+        }
+      ]
+    }
+}

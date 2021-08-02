@@ -1,0 +1,14 @@
+.order-screen-container {
+    position: absolute;
+    left: 400px;
+    top:50px;
+    height: 100%;
+    width: 20%;
+    float: right;
+    margin-left: 100px;
+  }
+  
+  .order-screen-content {
+    margin-top: 100px;
+    text-align: center;
+  }
