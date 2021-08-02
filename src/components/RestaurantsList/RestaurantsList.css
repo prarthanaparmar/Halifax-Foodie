@@ -1,0 +1,13 @@
+.restaurant-screen-container {
+  position: absolute;
+  left: 400px;
+  top:50px;
+  height: 100%;
+  width: 80%;
+  float: right;
+}
+
+.restaurant-screen-content {
+  margin-top: 100px;
+  text-align: center;
+}
